@@ -1,0 +1,37 @@
+.section-main{
+    position: relative;
+    width:100%;
+    min-height: 52vh;
+    background: url(./../../assets/timelinebanner.jpg) no-repeat;
+    -webkit-background-size:contain;
+    background-size: contain;
+    background-position: top top;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    
+    h2{
+        color:white;
+    }
+  }
+  @media only screen and (max-width:1200px){
+    .section-main{
+      top:10vh;
+      background-position: center center;
+      background-size: 24rem 15rem;
+      
+    }
+    
+  
+  }
+  @media (min-width: 650px ) {
+    .section-main {
+        background-position: center center;
+    }
+
+    .section-main {
+        align-items: flex-end;
+        justify-content: center;
+    }
+}

@@ -5,10 +5,7 @@ const HomepageLayout = props => {
     return (
         <div className="fullHeight">
             <Header />
-            
-                {props.children}
-
-            
+                {props.children}  
         </div>
 
     );

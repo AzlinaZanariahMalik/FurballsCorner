@@ -7,7 +7,6 @@ const MainLayout = props => {
             <Header />
             <div className="main">
                 {props.children}
-
             </div>
         </div>
 
