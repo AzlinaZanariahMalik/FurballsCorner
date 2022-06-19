@@ -1,10 +1,10 @@
 import React from "react";
-import Header from "./../components/Header";
+import Header from "../components/Header";
 import Footer from "../components/Footer";
-const MainLayout = props => {
+const MainOutline = props => {
     return (
         <div >
-            <Header />
+            <Header {...props} />
             <div className="main">
                 {props.children}
             </div>
@@ -14,4 +14,4 @@ const MainLayout = props => {
     );
 };
 
-export default MainLayout;
+export default MainOutline;

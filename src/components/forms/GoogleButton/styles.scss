@@ -1,0 +1,19 @@
+.gbtn{
+    border: none;
+    outline: none;
+    width: 100%;
+    background: rgb(207, 206, 206);
+    font-weight: bold;
+    color: black;
+    border: 1px solid rgb(134, 134, 134);
+    border-radius: 1px;
+    padding: 10px 5px;
+    margin: 10px 5px;
+    cursor: pointer;
+}
+
+.gbtn:hover{
+    background-color: rgb(165, 165, 165);
+    
+  
+  }

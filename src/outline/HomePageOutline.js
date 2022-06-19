@@ -1,10 +1,10 @@
 import React from "react";
-import Header from "./../components/Header";
+import Header from "../components/Header";
 import Footer from "../components/Footer";
-const HomepageLayout = props => {
+const HomepageOutline = props => {
     return (
         <div className="fullHeight">
-            <Header />
+            <Header {...props}/>
                 {props.children}  
             <Footer />
         </div>
@@ -12,4 +12,4 @@ const HomepageLayout = props => {
     );
 };
 
-export default HomepageLayout;
+export default HomepageOutline;

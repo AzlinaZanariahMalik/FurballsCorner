@@ -4,7 +4,7 @@ import All from './../../assets/category/all.png';
 import Accessories from './../../assets/category/1.png';
 import Clothes from './../../assets/category/2.png';
 import Foods from './../../assets/category/3.png';
-import Hygiene from './../../assets/category/4.png';
+import Hygiene from './../../assets/category/4.png'; 
 import Toys from './../../assets/category/5.png';
 
 const Directory = props => {

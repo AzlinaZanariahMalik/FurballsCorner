@@ -1,0 +1,51 @@
+
+.formWrap{
+        .connect{
+            text-align: center;
+            
+          }
+          .forgotpass{
+            text-align:right ;
+          }
+          .linking{
+            text-align: center;
+          }
+          p{
+            font-size: 17px;
+            }
+         .linking a{
+            color: royalblue;
+          }
+          
+          .linking a:hover{
+            color: lightblue;
+          }
+
+        .googleSignin{
+            margin: 1rem auto;
+            
+            
+        }
+    .googleSignin{
+      margin: 1rem auto;
+      .row{
+        
+        display: flex;
+        .gmage{
+          flex:30%;
+          width: 7%;
+         
+        }
+        .column{
+          flex:50%;
+        }
+        img{
+          
+          width: 100%;
+          height: 100%;
+      }
+      
+      }
+    }
+
+}

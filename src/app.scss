@@ -1,6 +1,4 @@
-htnl{
-    font-size: 10px;
-}
+
 html,
 body{
     height: 100%;
@@ -30,6 +28,7 @@ body{
     font-size: 1.8rem;
     font-weight: 400;
     line-height: 1;
+  
 
 }
 
@@ -42,4 +41,7 @@ a, a:hover{
     --webkit-transition:all .4s ease-in-out;
     --moz-transition: all .4s ease-in-out;
     transition:all .4s ease-in-out;
+}
+.container{
+    margin-top:10vh ;
 }
