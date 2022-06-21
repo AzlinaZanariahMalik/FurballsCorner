@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import './styles.scss';
 
@@ -6,35 +6,19 @@ import Formfield from '../forms/Formfield';
 import Button from '../forms/Button';
 import HeadForm from "../HeadForm";
 import { auth } from '../../firebase/utility';
-const initialState = {
-    email: '',
-    errorm: []
-};
+//const initialState = {
+//    email: '',
+//    errorm: []
+//};
 
-class SendEmailRecovery extends Component {
-    constructor (props){
-        super(props);
-        this.state = {
-            ...initialState
-        };
-        this.handleChange = this.handleChange.bind(this);
-    }
+const SendEmailRecovery = props => {
+    const [ email, placeEmail ] = useState('');
+    const  [errorm, placeErrorm ] = useState([]);
 
-    handleChange(e) {
-        const {name, value } = e.target;
-        this.setState({
-            [name]: value
-        })
-
-    }
-
-    handleSubmit = async e =>{
+    const handleSubmit = async e =>{
         e.preventDefault();
-        
-
+    
         try{
-
-            const {email } = this.state;
 
             const setup ={
                 url:'http://localhost:3000/login'
@@ -42,21 +26,19 @@ class SendEmailRecovery extends Component {
 
             await auth.sendPasswordResetEmail(email, setup)
             .then(() => {
-                this.props.history.push('/login');
+                props.history.push('/login');
             })
             .catch (() => {
                 const e = ['Email Does not not exist from the registered account'];
-                this.setState({
-                    errorm:e
-                });
+                placeErrorm(e);
             });
 
         } catch(e){
             //console.log(e);
         }
     }
-    render() {
-        const {email, errorm } = this.state;
+   
+       
         const setupHeadForm = {
             title: 'Enter Your Email'
         };
@@ -74,13 +56,13 @@ class SendEmailRecovery extends Component {
                                         })}
                                     </ul>
                                 )}
-                                <form onSubmit={this.handleSubmit}>
+                                <form onSubmit={handleSubmit}>
                                     <Formfield
                                         type="email"
                                         name="email"
                                         value={email}
                                         placeholder="Enter Email"
-                                        handleChange={this.handleChange}
+                                        handleChange={e => placeEmail(e.target.value)}
                                         />
 
                                     <Button type="submit">
@@ -94,6 +76,6 @@ class SendEmailRecovery extends Component {
                                
         )
     }
-}
+
 
 export default withRouter (SendEmailRecovery);

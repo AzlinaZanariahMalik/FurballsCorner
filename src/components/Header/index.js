@@ -2,10 +2,14 @@ import React from "react";
 import './styles.scss'; 
 import Logo from './../../assets/fclogo.png';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { auth } from '../../firebase/utility';
+
+const mapState = ({ user }) =>({
+    currentUser: user.currentUser
+});
 const Header = props => {
-    const { currentUser } = props;
+    const { currentUser } = useSelector(mapState);
     return (
         <header className="header">
             <div className="wrap">
@@ -20,7 +24,7 @@ const Header = props => {
                     {currentUser &&  (
                             <div className="menu">
                                 <NavLink exact to="/" activeClassName="active-link">Home</NavLink>
-                                <NavLink exact to="/account" activeClassName="active-link">Account</NavLink>          
+                                <NavLink exact to="/dashboard" activeClassName="active-link">Account</NavLink>          
                                 <span onClick={() => auth.signOut()}>
                                     Logout
                                 </span>
@@ -42,9 +46,6 @@ Header.defaultProps = {
     currentUser: null
 };
 
-const mapStateToProps = ({ user }) =>({
-    currentUser: user.currentUser
-});
 
-export default connect(mapStateToProps, null) (Header);
+export default Header;
 

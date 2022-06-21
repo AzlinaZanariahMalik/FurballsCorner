@@ -1,64 +1,72 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react"; 
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import { userSignup } from "../../redux/User/user.actions";
+
+
+import { Link, withRouter } from "react-router-dom";
 import './styles.scss';
-import { auth, handleUserProfile, signInWithGoogle } from '../../firebase/utility';
+import { signInWithGoogle } from '../../firebase/utility';
 import Formfield from "../forms/Formfield";
 import GoogleLogo from './../../assets/google.png';
 import Button from  './../forms/Button';
 import GoogleButton from "../forms/GoogleButton";
 import HeadForm from "../HeadForm";
-import { Link } from 'react-router-dom';
 
-const initialState = {
-    displayName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    errorm: []
-}
-class Signup extends Component{
 
-    constructor(props){
-        super(props);
-        this.state = {
-            ...initialState
-        };
-        this.handleChange = this.handleChange.bind(this);
+const mapState = ({ user }) => ({
+    successSignup: user.successSignup,
+    errorSignup: user.errorSignup
+});
+
+const Signup = props => {
+    //redux hooks
+    const { successSignup, errorSignup} = useSelector(mapState);
+    const dispatch = useDispatch();
+
+    //state variable component
+    const [displayName, placeDisplayName] = useState('');
+    const [email, placeEmail] =  useState('');
+    const [ password, placePassword] = useState('');
+    const [ confirmPassword, placeConfirmPassword ] = useState('');
+    const [errorm, placeErrorm ] = useState('');
+
+    //dependency of successSignup
+    useEffect(() => {
+        //handle success case
+        if(successSignup){
+            reset();
+            props.history.push('/');
+        }
+    }, [successSignup]);
+
+    //dependency of errorSignup
+    useEffect(() => {
+        //handle error case
+        if(Array.isArray(errorSignup) && errorSignup.length > 0 ){
+            placeErrorm(errorSignup);
+        }
+
+    }, [errorSignup]);
+
+    const reset = () => {
+        placeDisplayName('');
+        placeEmail('');
+        placePassword('');
+        placeConfirmPassword('');
+        placeErrorm([]);
     }
-
-    handleChange(e) {
-        const {name, value } = e.target;
-
-        this.setState({
-            [name]: value
-        });
-    }
-
-    handleFormSubmit = async event => {
+    const handleFormSubmit =  event => {
         event.preventDefault();
-        const {displayName, email, password, confirmPassword, errorm } = this.state;
-
-        if(password !== confirmPassword){
-            const e = ['Password and Confirm Password Don\'t match'];
-            this.setState({
-                errorm: e
-            });
-            return;
-        }
-        try {
-            const { user } = await auth.createUserWithEmailAndPassword(email, password);
-
-            await handleUserProfile(user, { displayName });
-
-            this.setState({
-                ...initialState
-            });
-        } catch(e){
-            //console.log(e);
-        }
+        dispatch(userSignup({
+        displayName,
+        email,
+        password,
+        confirmPassword,
+       }));
     }
-    render(){
-
-        const {displayName, email, password, confirmPassword, errorm} = this.state;
+    
+       
         const setupHeadForm = {
             title: 'register'
         };
@@ -77,14 +85,14 @@ class Signup extends Component{
                             })}
                         </ul>
                     )}
-                        <form onSubmit={this.handleFormSubmit}>
+                        <form onSubmit={handleFormSubmit}>
                         
                             <Formfield
                             type="text"
                             name="displayName"
                             value={displayName}
                             placeholder="Enter Full name"
-                            onChange={this.handleChange}
+                            handleChange={e => placeDisplayName(e.target.value)}
                             />
 
                         <Formfield
@@ -92,7 +100,7 @@ class Signup extends Component{
                             name="email"
                             value={email}
                             placeholder="Enter Email"
-                            onChange={this.handleChange}
+                            handleChange={e => placeEmail(e.target.value)}
                             />
 
                         <Formfield
@@ -100,7 +108,7 @@ class Signup extends Component{
                             name="password"
                             value={password}
                             placeholder="Enter Password"
-                            onChange={this.handleChange}
+                            handleChange={e => placePassword(e.target.value)}
                             />
 
                         <Formfield
@@ -108,7 +116,7 @@ class Signup extends Component{
                             name="confirmPassword"
                             value={confirmPassword}
                             placeholder="Confirm Password"
-                            onChange={this.handleChange}
+                            handleChange={e => placeConfirmPassword(e.target.value)}
                             />  
 
                          <Button type="submit">
@@ -140,6 +148,6 @@ class Signup extends Component{
             </div>
         );
     }
-}
 
-export default Signup;
+
+export default withRouter(Signup);
