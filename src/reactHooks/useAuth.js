@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux/es/hooks/useSelector";
+import { useSelector } from "react-redux";
 
 const mapState = ({ user }) => ({
     currentUser: user.currentUser

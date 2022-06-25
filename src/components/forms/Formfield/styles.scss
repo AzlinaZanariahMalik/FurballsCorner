@@ -2,10 +2,17 @@
 
 .frow {
     input {
-        padding: 15px;
+        display: block;
+        font-size: 1.5rem;
+        line-height: 1;
+        font-weight: 400;
+        text-align: left;
+        padding: 10px 5px;
+        margin: 10px auto;
+        
         outline: none;
         border-radius: 3px;
-        margin-bottom: 10px;
+       
         width: 100%;
         border: none;
         box-sizing: border-box;
@@ -13,80 +20,15 @@
         font-size: 13px;
         box-shadow: 0 10px 10px rgba(0,0,0,0.1);
     }
+    input:hover{
+      border-bottom: 3px solid royalblue;
+      outline: none;
+      box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+    }
+
 }
 
-
-
-.frow fieldset {
-    background: white;
-    border: 0 none;
-    border-radius: 3px;
-    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
-    padding: 20px 30px;
-    box-sizing: border-box;
-    width: 80%;
-    margin: 0 10%;
-    position: relative;
-}
-.frow input, .frow textarea {
-    padding: 15px;
-    outline: none;
-    border-radius: 3px;
-    margin-bottom: 10px;
-    width: 100%;
-    border: none;
-    box-sizing: border-box;
-    color: #2C3E50;
-    font-size: 13px;
-    box-shadow: 0 10px 10px rgba(0,0,0,0.1);
-  
-}
-
-.frow input:hover{
-  border-bottom: 3px solid royalblue;
-  outline: none;
-  box-shadow: 0 10px 10px rgba(0,0,0,0.1);
-}
-
-.frow .action-button {
-    width: 100px;
-    background: royalblue;
-    font-weight: bold;
-    color: white;
-    border: 0 none;
-    border-radius: 1px;
-    cursor: pointer;
-    padding: 10px 5px;
-    margin: 10px 5px;
-}
-
-.reset{
-  text-align: right;
-  color: royalblue;
-  
-}
-.reset:hover{
-  color: lightblue;
-}
-.frow .action-button:hover, .frow .action-button:focus {
-    box-shadow: 0 0 0 2px white;
-}
-
-
-/*headings*/
-.frow .form-title {
-    font-size: 2rem;
-    text-transform: uppercase;
-    color: royalblue;
-    margin-bottom: 10px;
-}
-.frow .form-subtitle {
-    font-weight: normal;
-    font-size: 13px;
-    color: royalblue;
-    margin-bottom: 20px;
-}
-
+ 
 
 @media (max-width: 580px){
   .frow {

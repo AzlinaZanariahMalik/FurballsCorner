@@ -1,15 +1,22 @@
 import React from "react";
 import './styles.scss'; 
+import { userSignoutStart } from "../../redux/User/user.actions";
 import Logo from './../../assets/fclogo.png';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { auth } from '../../firebase/utility';
+import { useSelector, useDispatch } from 'react-redux';
+
 
 const mapState = ({ user }) =>({
     currentUser: user.currentUser
 });
 const Header = props => {
+    const dispatch = useDispatch();
     const { currentUser } = useSelector(mapState);
+
+    const signOut = () => {
+        dispatch(userSignoutStart());
+    };
+
     return (
         <header className="header">
             <div className="wrap">
@@ -25,7 +32,7 @@ const Header = props => {
                             <div className="menu">
                                 <NavLink exact to="/" activeClassName="active-link">Home</NavLink>
                                 <NavLink exact to="/dashboard" activeClassName="active-link">Account</NavLink>          
-                                <span onClick={() => auth.signOut()}>
+                                <span onClick={() => signOut()}>
                                     Logout
                                 </span>
                              </div>
@@ -45,7 +52,6 @@ const Header = props => {
 Header.defaultProps = {
     currentUser: null
 };
-
 
 export default Header;
 

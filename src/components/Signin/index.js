@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { userSignin } from "../../redux/User/user.actions";
+import { startEmailSignin, startGoogleSignin } from "../../redux/User/user.actions";
+ 
 
-
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './styles.scss';
 import Buttons from './../forms/Button';
-import { auth, signInWithGoogle } from '../../firebase/utility';
+
 import GoogleLogo from './../../assets/google.png';
 import Formfield from "../forms/Formfield";
 import Button from  './../forms/Button';
@@ -15,37 +15,48 @@ import GoogleButton from "../forms/GoogleButton";
 import HeadForm from "../HeadForm";
 
 const mapState = ({ user }) => ({
-    successSignin: user.successSignin
+    currentUser: user.currentUser,
+    errorSignin: user.errorSignin
 });
 
 const SignIn = props => {
+  const history = useHistory();
   //redux hooks 
-  const { successSignin } = useSelector(mapState);
+  const { currentUser, errorSignin } = useSelector(mapState);
   const dispatch = useDispatch();
 
   //state variable component
   const [email, setEmail] =  useState('');
   const [ password, setPassword] = useState('');
+  const [errorm, placeErrorm ] = useState('');
 
-  //dependency of successSignup
+ 
+  //dependency of successSignin 
   useEffect(() => {
     //handle success case
-    if(successSignin){
+    if(currentUser){
         resetForm();
-        props.history.push('/');
+        history.push('/');
     }
-  }, [successSignin]);
+  }, [currentUser]);
 
-  //dependency of errorSignup
+  //dependency of errorSignin
+  useEffect(() => {
+    //handle error case
+    if(Array.isArray(errorSignin) && errorSignin.length > 0 ){
+        placeErrorm(errorSignin);
+    }
+
+}, [errorSignin]);
 
   const resetForm = () => {
     setEmail('');
     setPassword('');
-
+    placeErrorm([]);
   }
   const handleSubmit = e =>{
         e.preventDefault();
-        dispatch(userSignin({ email, password}));
+        dispatch(startEmailSignin({ email, password}));
         //resetForm();
         //   props.history.push('/');
         //try{
@@ -55,6 +66,10 @@ const SignIn = props => {
            //console.log(e);
         //}
     }
+ 
+    const handleGoogleSignin = () => {
+        dispatch(startGoogleSignin());
+    }
         const setupHeadForm = {
             title: 'login'
         };
@@ -63,6 +78,17 @@ const SignIn = props => {
         <div className="container">
                   <HeadForm {...setupHeadForm}>
                   <div className="formWrap">
+                  {errorm.length> 0 &&(
+                        <ul>
+                            {errorm.map((e, index) => {
+                                return (
+                                    <li key={index}>
+                                        {e}
+                                    </li>
+                                )
+                            })}
+                        </ul>
+                    )}
                                 <form onSubmit={handleSubmit}>
                                     <Formfield
                                         type="email"
@@ -93,10 +119,10 @@ const SignIn = props => {
                                     </div>
                                     <div className="googleSignin">
                                         <div className="row">
-                                            <GoogleButton onClick={signInWithGoogle}>
+                                            <GoogleButton onClick={handleGoogleSignin}>
                                                 
                                                 <div className="column">
-                                                    <div className="gmage"><img src={GoogleLogo} /></div>
+                                                    
                                                 </div>
                                                 <div className="column">Sign in with Google</div> 
                                             </GoogleButton>
@@ -117,4 +143,4 @@ const SignIn = props => {
     }
 
 
-export default withRouter(SignIn);
+export default SignIn;

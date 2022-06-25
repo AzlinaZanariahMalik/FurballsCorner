@@ -1,101 +1,53 @@
 import userTypes from "./user.Types";
-import { auth, handleUserProfile, GoogleProvider } from "../../firebase/utility";
 
-export const startemailSignin = userCredentials => ({
+export const startEmailSignin = userCredentials => ({
     type: userTypes.START_EMAIL_SIGN_IN,
     payload: userCredentials
 });
 
-export const successSignin = userCredentials => ({
+export const successSignin = user => ({
     type: userTypes.SUCCESS_SIGN_IN,
     payload: user
 });
 
+export const userSession =  () => ({
+    type: userTypes.USER_SESSION
+})
 
-
-
-
-
-
-
-
-
-export const setCurrentUser = user => ({
-    type: userTypes.SET_CURRENT_USER,
-    payload: user
+export const userSignoutStart = () => ({
+    type: userTypes.USER_SIGN_OUT_START
 });
 
-export const authenticationReset =  () => ({
-    type: userTypes.AUTHENTICATION_RESET
+export const userSignoutSuccess = () => ({
+    type:userTypes.USER_SIGN_OUT_SUCCESS
 });
-//export const userSignin = ({ email, password }) => async dispatch => {
-    
-//};
 
-export const userSignup = ({ displayName, email, password, confirmPassword }) => async dispatch => {
-    if(password !== confirmPassword){
-        const e = ['Password and Confirm Password Don\'t match'];
-        dispatch({
-            type: userTypes.ERROR_SIGN_UP,
-            payload: e
-        });
-        return;
-    }
-    try {
-        const { user } = await auth.createUserWithEmailAndPassword(email, password);
+export const userSignupStart = userCredentials => ({
+    type:userTypes.USER_SIGN_UP_START,
+    payload: userCredentials
+});
 
-        await handleUserProfile(user, { displayName });
-        dispatch({
-            type: userTypes.SUCCESS_SIGN_UP,
-            payload: true
-        });
+export const userError = e => ({
+    type: userTypes.USER_ERROR,
+    payload: e
+});
 
-    } catch(e){
-        //console.log(e);
-    }
+export const passwordResetStart =  userCredentials => ({
+    type:userTypes.PASSWORD_RESET_START,
+    payload: userCredentials
+}); 
 
-};
+export const successPasswordReset = () => ({
+    type:userTypes.SUCCESS_PASSWORD_RESET,
+    payload: true
+});
 
-export const passwordReset = ({ email }) => async dispatch =>{
-    const setup ={
-        url:'http://localhost:3000/login'
-    };
+export const userResetState = () => ({
+    type: userTypes.USER_RESET_STATE
 
-    try{
+});
 
-        await auth.sendPasswordResetEmail(email, setup)
-        .then(() => {
-            dispatch({
-                type: userTypes.SUCCESS_PASSWORD_RESET,
-                payload: true
-            });
-           
-        })
-        .catch (() => { 
-            const e = ['Email does not exist from the registered account'];
-            dispatch({
-                type: userTypes.ERROR_PASSWORD_RESET,
-                payload: e
-            })
-            //return;
-        });
+ export const startGoogleSignin = () => ({
+    type: userTypes.START_GOOGLE_SIGN_IN
+ });
 
-    } catch(e){
-        //console.log(e);
-    }
-};
-
-export const signInWithGoogle = () => async dispatch =>{
-    try{
-        await auth.signInWithPopup(GoogleProvider)
-        .then(() => {
-            dispatch({
-                type: userTypes.SUCCESS_SIGN_IN,
-                payload: true
-            });
-        });
-    }catch (e){
-        //console.log(e);
-    }
-    
-};

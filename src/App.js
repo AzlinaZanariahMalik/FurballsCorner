@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { auth, handleUserProfile } from './firebase/utility';
+
 //Redux
-import { connect } from 'react-redux/es/exports';
-import { setCurrentUser} from './redux/User/user.actions'
+import { useDispatch} from 'react-redux';
+import { userSession } from './redux/User/user.actions'
 //Modules
 import Authentication from './modules/Authentication';
 //Outline
@@ -19,26 +19,11 @@ import './app.scss';
 
 const App = props => {
   
-  const { setCurrentUser, currentUser} = props;
-  useEffect(()=> {
+  const dispatch = useDispatch();
 
-      const authListener = auth.onAuthStateChanged(async userAuth => {
-        if (userAuth){
-          const userRef = await handleUserProfile(userAuth);
-          userRef.onSnapshot(snapshot =>{
-            this.props.setCurrentUser({
-                id: snapshot.id,
-                ...snapshot.data()
-             
-            });
-          })
-        }  
-          setCurrentUser(userAuth);
-      });
-
-    return () => {
-      authListener();
-    };
+  useEffect(() => {
+    dispatch(userSession());
+      
   }, []);
   
     return (
@@ -49,13 +34,13 @@ const App = props => {
                 <Homepage />
               </HomepageOutline>
             )} />
-            <Route path="/registration" render={() => currentUser ? <Redirect to="/"/> : (
+            <Route path="/registration" render={() => (
               <MainOutline >
                 <Registration />
               </MainOutline>
             )} />
              <Route path="/login" 
-              render={() => currentUser ? <Redirect to="/" /> : (
+              render={() => (
                 <MainOutline >
                   <Login />
                 </MainOutline>
@@ -79,14 +64,4 @@ const App = props => {
     );
   }
  
-
-
-const mapStateToProps = ({user}) => ({
-  currentUser: user.currentUser
-});
-
-const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

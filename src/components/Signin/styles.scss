@@ -1,5 +1,10 @@
 
 .formWrap{
+  ul{
+    font-size: 1rem;
+    color: red;
+    text-align: center;
+  }
         .connect{
             text-align: center;
             
@@ -28,6 +33,7 @@
         }
     .googleSignin{
       margin: 1rem auto;
+      
       .row{
         
         display: flex;

@@ -1,27 +1,29 @@
 import React, { useState, useEffect } from "react"; 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { userSignup } from "../../redux/User/user.actions";
+import { userSignupStart, startGoogleSignin} from "../../redux/User/user.actions";
 
 
-import { Link, withRouter } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import './styles.scss';
-import { signInWithGoogle } from '../../firebase/utility';
+
 import Formfield from "../forms/Formfield";
 import GoogleLogo from './../../assets/google.png';
 import Button from  './../forms/Button';
 import GoogleButton from "../forms/GoogleButton";
 import HeadForm from "../HeadForm";
 
-
+ 
 const mapState = ({ user }) => ({
-    successSignup: user.successSignup,
-    errorSignup: user.errorSignup
+    currentUser: user.currentUser,
+    userErr: user.userErr 
+   
 });
-
+ 
 const Signup = props => {
+    const history = useHistory();
     //redux hooks
-    const { successSignup, errorSignup} = useSelector(mapState);
+    const { currentUser, userErr} = useSelector(mapState);
     const dispatch = useDispatch();
 
     //state variable component
@@ -34,20 +36,20 @@ const Signup = props => {
     //dependency of successSignup
     useEffect(() => {
         //handle success case
-        if(successSignup){
+        if(currentUser){
             reset();
-            props.history.push('/');
+            history.push('/');
         }
-    }, [successSignup]);
+    }, [currentUser]);
 
     //dependency of errorSignup
     useEffect(() => {
         //handle error case
-        if(Array.isArray(errorSignup) && errorSignup.length > 0 ){
-            placeErrorm(errorSignup);
+        if(Array.isArray(userErr) && userErr.length > 0 ){
+            placeErrorm(userErr);
         }
 
-    }, [errorSignup]);
+    }, [userErr]);
 
     const reset = () => {
         placeDisplayName('');
@@ -58,7 +60,7 @@ const Signup = props => {
     }
     const handleFormSubmit =  event => {
         event.preventDefault();
-        dispatch(userSignup({
+        dispatch(userSignupStart({
         displayName,
         email,
         password,
@@ -66,7 +68,9 @@ const Signup = props => {
        }));
     }
     
-       
+    const handleGoogleSignin = () => {
+        dispatch(startGoogleSignin());
+    }   
         const setupHeadForm = {
             title: 'register'
         };
@@ -128,17 +132,17 @@ const Signup = props => {
                                     </div>
                                     <div className="googleSignin">
                                         <div className="row">
-                                            <GoogleButton onClick={signInWithGoogle}>
+                                            <GoogleButton onClick={handleGoogleSignin}>
                                                 
                                                 <div className="column">
-                                                    <div className="gmage"><img src={GoogleLogo} /></div>
+                                                   
                                                 </div>
                                                 <div className="column">Sign in with Google</div> 
                                             </GoogleButton>
                                         </div>
                                     </div>
                                     <div className="linking">
-                                        <p>Already Have an account? <Link to="/login">login here</Link></p>
+                                        <p>Already Have an account? <Link to="/login">Login here</Link></p>
                                     </div>
                         </form>
                     </div>
@@ -150,4 +154,4 @@ const Signup = props => {
     }
 
 
-export default withRouter(Signup);
+export default Signup;

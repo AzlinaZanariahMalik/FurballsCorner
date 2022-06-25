@@ -9,7 +9,10 @@ const Formfield = ({ handleChange, label, ...otherProps }) => {
                     {label}
                 </label>
             )}
-            <input className="formField" onChange={handleChange} {...otherProps} />
+            <div className="form">
+                <input className="formField" onChange={handleChange} {...otherProps} />
+            </div>
+            
 
         </div>
     );

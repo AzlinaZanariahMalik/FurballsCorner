@@ -4,7 +4,14 @@ import './styles.scss';
 
 class Registration extends Component{
     render(){
-        return <Signup />;
+        return (
+            <div>
+            <style>
+                {'body {background-color:royalblue}'}
+            </style>
+             <Signup />
+        </div>
+        )
     }
 }
 
