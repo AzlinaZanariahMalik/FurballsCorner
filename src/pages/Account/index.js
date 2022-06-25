@@ -1,6 +1,6 @@
 import React from "react";
 import './styles.scss';
-const Dashboard = props =>{
+const Account = props =>{
     return (
         <div className="container">
             <h1>
@@ -11,4 +11,4 @@ const Dashboard = props =>{
     );
 };
 
-export default Dashboard;
+export default Account;

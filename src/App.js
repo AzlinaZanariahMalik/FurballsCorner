@@ -5,16 +5,21 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { useDispatch} from 'react-redux';
 import { userSession } from './redux/User/user.actions'
 //Modules
+import AdminAuthentication from './modules/AdminAuthentication';
 import Authentication from './modules/Authentication';
 //Outline
 import MainOutline from './outline/MainOutline';
 import HomepageOutline from './outline/HomePageOutline';
+//Admin
+import RedirectAdmin from './components/RedirectAdmin';
+import Admin from './pages/Admin';
 //Pages
 import Homepage from './pages/Homepage';
 import Registration from './pages/Registration';
 import Login from './pages/Login';
 import RecoverAccount from './pages/RecoverAccount';
-import Dashboard from './pages/Dashboard';
+import Account from './pages/Account';
+
 import './app.scss';
 
 const App = props => {
@@ -28,6 +33,7 @@ const App = props => {
   
     return (
       <div className="App">
+        <RedirectAdmin />
           <Switch>
             <Route exact path="/" render={() => (
               <HomepageOutline >
@@ -50,13 +56,19 @@ const App = props => {
                 <RecoverAccount />
               </MainOutline>
             )} />
-            <Route path="/dashboard" render={() => (
+            <Route path="/account" render={() => (
               <Authentication>
                <MainOutline>
-                <Dashboard />
+                <Account />
               </MainOutline> 
               </Authentication>
-              
+            )} />
+            <Route path="/admin" render={() => (
+              <AdminAuthentication>
+                  <MainOutline>
+                  <Admin />
+                  </MainOutline>
+              </AdminAuthentication>
             )} />
           </Switch>
    

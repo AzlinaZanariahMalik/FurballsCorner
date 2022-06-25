@@ -31,7 +31,7 @@ const Header = props => {
                     {currentUser &&  (
                             <div className="menu">
                                 <NavLink exact to="/" activeClassName="active-link">Home</NavLink>
-                                <NavLink exact to="/dashboard" activeClassName="active-link">Account</NavLink>          
+                                <NavLink exact to="/account" activeClassName="active-link">Account</NavLink>          
                                 <span onClick={() => signOut()}>
                                     Logout
                                 </span>
