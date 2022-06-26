@@ -45,3 +45,28 @@ a, a:hover{
 .container{
     margin-top:10vh ;
 }
+.controlPanel {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    padding: 3rem 0 0 25.0rem;
+    border-bottom: 1px solid #d3d3d3;
+  
+    .sidebar {
+      position: absolute;
+      top: 0; left: 0;
+      width: 20.0rem;
+      height: 100%;
+      z-index: 1;
+      border-right: 1px solid #d3d3d3;
+    }
+}
+
+.adminLayout {
+    height: calc(100% - 6.5rem - 5.8rem - 3.6rem);
+  }
+  
+  .dashboardLayout {
+    height: calc(100% - 6.5rem - 5.8rem);
+  }

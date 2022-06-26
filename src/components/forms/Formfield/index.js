@@ -1,6 +1,6 @@
 import React from "react";
 import './styles.scss';
-
+import {Input} from 'antd';
 const Formfield = ({ handleChange, label, ...otherProps }) => {
     return (
         <div className="frow">
@@ -10,7 +10,7 @@ const Formfield = ({ handleChange, label, ...otherProps }) => {
                 </label>
             )}
             <div className="form">
-                <input className="formField" onChange={handleChange} {...otherProps} />
+                <Input className="formField" onChange={handleChange} {...otherProps} required/>
             </div>
             
 

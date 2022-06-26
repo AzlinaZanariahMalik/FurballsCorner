@@ -14,9 +14,6 @@ import Button from  './../forms/Button';
 import GoogleButton from "../forms/GoogleButton";
 import HeadForm from "../HeadForm";
 
-//import { Form } from 'antd';
-//import { userIsAdmin } from "../../moduleAdmin";
-
 const mapState = ({ user }) => ({
     currentUser: user.currentUser,
     errorSignin: user.errorSignin

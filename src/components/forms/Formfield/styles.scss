@@ -1,7 +1,7 @@
 
 
-.frow {
-    input {
+.form {
+    Input {
         display: block;
         font-size: 1.5rem;
         line-height: 1;
@@ -20,7 +20,7 @@
         font-size: 13px;
         box-shadow: 0 10px 10px rgba(0,0,0,0.1);
     }
-    input:hover{
+    Input:hover{
       border-bottom: 3px solid royalblue;
       outline: none;
       box-shadow: 0 10px 10px rgba(0,0,0,0.1);
@@ -29,35 +29,9 @@
 }
 
  
-
-@media (max-width: 580px){
-  .frow {
-      top: 2rem;
-      width: 30rem;
-      margin: 50px auto;
-      text-align: center;
-      position: relative;
+@media screen and (max-width: 600px)
+{
+  Input{
+    width: 100%;
   }
-  
-}
-
-@media (max-width: 411px){
-  .frow {
-      top: 2rem;
-      width: 25rem;
-      margin: 50px auto;
-      text-align: center;
-      position: relative;
-  }
-  
-}
-@media (max-width: 360px){
-  .frow {
-      top: 2rem;
-      width: 20rem;
-      margin: 50px auto;
-      text-align: center;
-      position: relative;
-  }
-  
 }

@@ -1,9 +1,10 @@
 .adminbtn{
-    margin-top: 0;
+    //position: fixed;
+    //top:0;
     font-size: 1rem;
     display: inline;
     ul{
-        float: right;
+        text-align: center;
         margin-right: 1rem;
         li{
             display: inline-block;

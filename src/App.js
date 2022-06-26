@@ -10,6 +10,8 @@ import Authentication from './modules/Authentication';
 //Outline
 import MainOutline from './outline/MainOutline';
 import HomepageOutline from './outline/HomePageOutline';
+import DashboardOutline from './outline/Dashboard';
+import AdminOutline from './outline/AdminOutline';
 //Admin
 import RedirectAdmin from './components/RedirectAdmin';
 import Admin from './pages/Admin';
@@ -58,16 +60,16 @@ const App = props => {
             )} />
             <Route path="/account" render={() => (
               <Authentication>
-               <MainOutline>
+               <DashboardOutline>
                 <Account />
-              </MainOutline> 
+              </DashboardOutline> 
               </Authentication>
             )} />
-            <Route path="/admin" render={() => (
+            <Route path="/admin" render={() => (    
               <AdminAuthentication>
-                  <MainOutline>
+                  <AdminOutline>
                   <Admin />
-                  </MainOutline>
+                  </AdminOutline>
               </AdminAuthentication>
             )} />
           </Switch>
